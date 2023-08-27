@@ -2,8 +2,8 @@ import PostItem from "@/components/PostItem";
 
 export default async function Home() {
   return (
-    <main className="my-24 text-center">
-      <div className="grid grid-cols-4 gap-3">
+    <main>
+      <div className="grid grid-cols-4 gap-3 md:gap-7">
         <PostItem />
         <PostItem />
         <PostItem />
