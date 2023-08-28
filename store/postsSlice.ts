@@ -8,7 +8,9 @@ import { RootState } from ".";
 import { baseUrl } from "@/api";
 
 export const getPosts: any = createAsyncThunk("posts/getPosts", async () => {
-  const req = await fetch(`${baseUrl}/posts`);
+  const req = await fetch(`${baseUrl}/posts`, {
+    cache: "no-store",
+  });
   const response = await req.json();
   return response;
 });

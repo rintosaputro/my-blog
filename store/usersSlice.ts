@@ -9,6 +9,7 @@ import { RootState } from ".";
 
 export const getUsersApi = async () => {
   const users = await fetch(`${baseUrl}/users`, {
+    cache: "no-store",
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
