@@ -1,6 +1,6 @@
 "use client";
 
-import ButtonSubmit from "@/components/ButtonSubmit";
+import ButtonSubmit from "@/components/Button";
 import Radio from "@/components/Radio";
 import TextField from "@/components/TextField";
 import { createUser, usersSelector } from "@/store/usersSlice";
@@ -86,7 +86,7 @@ const CreateUser = () => {
             onChange={handleStatus}
           />
         </div>
-        <ButtonSubmit>Create User</ButtonSubmit>
+        <ButtonSubmit type="submit">Create User</ButtonSubmit>
       </form>
     </main>
   );
