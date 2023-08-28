@@ -12,22 +12,22 @@ export const getPosts: any = createAsyncThunk("posts/getPosts", async () => {
   return response;
 });
 
-const postEntity = createEntityAdapter<Post>({
+const postsEntity = createEntityAdapter<Post>({
   selectId: (post) => post.id,
 });
 
-const postSlice = createSlice({
+const postsSlice = createSlice({
   name: "post",
-  initialState: postEntity.getInitialState(),
+  initialState: postsEntity.getInitialState(),
   extraReducers: {
     [getPosts.fulfilled]: (state, action) => {
-      postEntity.setAll(state, action.payload);
+      postsEntity.setAll(state, action.payload);
     },
   },
   reducers: {},
 });
 
-export const postSelectors = postEntity.getSelectors(
+export const postSelectors = postsEntity.getSelectors(
   (state: RootState) => state.posts
 );
-export default postSlice.reducer;
+export default postsSlice.reducer;

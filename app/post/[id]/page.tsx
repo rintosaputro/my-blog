@@ -35,7 +35,7 @@ const fetchTodo = async (id: string) => {
 
 const PostDetail: FC<PostDetailProps> = async ({ params: { id } }) => {
   const post = await fetchTodo(id);
-  console.log("iiiiniiiii", post);
+
   return (
     <main>
       <PostArticle title={post.title} body={post.body} />
