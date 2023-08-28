@@ -8,9 +8,9 @@ const CommentList = () => {
         Comments:
       </h2>
       <div className="flex flex-col gap-3">
-        {[...Array(3)].map((_item: any, index: number) => (
+        {/* {[...Array(3)].map((_item: any, index: number) => (
           <CommentItem key={index} />
-        ))}
+        ))} */}
       </div>
     </>
   );
