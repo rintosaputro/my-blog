@@ -19,7 +19,7 @@ const CommentList = () => {
           ))}
         </div>
       ) : (
-        <p className="text-[#5c5c5c]">No Comment for this post</p>
+        <p className="text-[#5c5c5c]">No comment for this post</p>
       )}
     </>
   );
