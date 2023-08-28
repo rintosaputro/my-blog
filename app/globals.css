@@ -21,7 +21,8 @@ body {
   background: #fff;
 }
 
-.title-post {
+.title-post,
+.email-user {
   line-clamp: 1;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
