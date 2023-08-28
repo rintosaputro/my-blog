@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import "./globals.css";
 import { Roboto } from "next/font/google";
+import Providers from "@/components/Provider";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
     <html lang="en" className={roboto.className}>
       <body>
         <Header />
-        <div className="max-w-7xl p-[20px] md:p-[50px] m-auto">{children}</div>
+        <div className="max-w-7xl p-[20px] md:p-[50px] m-auto">
+          <Providers>{children}</Providers>
+        </div>
       </body>
     </html>
   );
