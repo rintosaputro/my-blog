@@ -16,3 +16,11 @@ export interface Comment {
 export interface PostDetail extends Post {
   comments: Comment[];
 }
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  gender: "male" | "female";
+  status: "active" | "inactive";
+}
