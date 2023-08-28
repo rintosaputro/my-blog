@@ -2,7 +2,7 @@ import React from "react";
 import PostItem from "./PostItem";
 import { store } from "@/store";
 import { Post } from "@/types";
-import { postSelectors } from "@/store/postSlice";
+import { postSelectors } from "@/store/postsSlice";
 
 const PostList = async () => {
   const posts = postSelectors.selectAll(store.getState());

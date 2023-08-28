@@ -5,29 +5,30 @@ import {
   createSlice,
 } from "@reduxjs/toolkit";
 import { RootState } from ".";
+import { baseUrl } from "@/api";
 
 export const getPosts: any = createAsyncThunk("posts/getPosts", async () => {
-  const req = await fetch("https://gorest.co.in/public/v2/posts");
+  const req = await fetch(`${baseUrl}/posts`);
   const response = await req.json();
   return response;
 });
 
-const postEntity = createEntityAdapter<Post>({
+const postsEntity = createEntityAdapter<Post>({
   selectId: (post) => post.id,
 });
 
-const postSlice = createSlice({
-  name: "post",
-  initialState: postEntity.getInitialState(),
+const postsSlice = createSlice({
+  name: "posts",
+  initialState: postsEntity.getInitialState(),
   extraReducers: {
     [getPosts.fulfilled]: (state, action) => {
-      postEntity.setAll(state, action.payload);
+      postsEntity.setAll(state, action.payload);
     },
   },
   reducers: {},
 });
 
-export const postSelectors = postEntity.getSelectors(
+export const postSelectors = postsEntity.getSelectors(
   (state: RootState) => state.posts
 );
-export default postSlice.reducer;
+export default postsSlice.reducer;

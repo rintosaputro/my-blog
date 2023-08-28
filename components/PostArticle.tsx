@@ -1,15 +1,15 @@
-import React, { FC } from "react";
+import { store } from "@/store";
+import { postDetailSelector } from "@/store/postDetailSlice";
+import { PostDetail } from "@/types";
+import React from "react";
 
-interface PostArticleProps {
-  title: string;
-  body: string;
-}
+const PostArticle = () => {
+  const post: PostDetail | any = postDetailSelector(store.getState());
 
-const PostArticle: FC<PostArticleProps> = ({ title, body }) => {
   return (
     <article>
-      <h1 className="text-[24px] md:text-[32px] font-bold">{title}</h1>
-      <p className="mt-4">{body}</p>
+      <h1 className="text-[24px] md:text-[32px] font-bold">{post.title}</h1>
+      <p className="mt-4">{post.body}</p>
     </article>
   );
 };
