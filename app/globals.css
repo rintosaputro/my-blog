@@ -21,6 +21,15 @@ body {
   background: #fff;
 }
 
+.title-post {
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 .body-post {
   line-clamp: 3;
   -webkit-line-clamp: 3;

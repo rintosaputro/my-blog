@@ -1,14 +1,13 @@
-import PostItem from "@/components/PostItem";
+import PostList from "@/components/PostList";
+import { store } from "@/store";
+import { getPosts } from "@/store/postSlice";
 
 export default async function Home() {
+  await store.dispatch(getPosts());
+
   return (
     <main>
-      <div className="grid grid-cols-4 gap-3 md:gap-7">
-        <PostItem />
-        <PostItem />
-        <PostItem />
-        <PostItem />
-      </div>
+      <PostList />
     </main>
   );
 }
