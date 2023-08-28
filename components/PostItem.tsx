@@ -1,18 +1,20 @@
 import Link from "next/link";
-import React from "react";
+import React, { FC } from "react";
 
-const PostItem = () => {
+interface PostItemProps {
+  title: string;
+  body: string;
+  id: number;
+}
+
+const PostItem: FC<PostItemProps> = ({ title, body, id }) => {
   return (
-    <Link href="/post/1">
+    <Link href={`/post/${id}`}>
       <div className="p-4 shadow-lg rounded-md hover:shadow-2xl">
-        <h2 className="text-[20px] md:text-[23px] font-bold">title</h2>
-        <p className="body-post mt-2">
-          Tabesco cresco dolor. Territo accusantium tres. Sed trepide utilis. Et
-          denique vicinus. Creo tabernus textilis. Creator pauci armarium. Trans
-          clam aestus. Voluptates suspendo totam. Dicta sit desolo. Considero
-          tubineus comedo. Temporibus demo armarium. Admitto pauper tenus.
-          Stipes thesaurus quo. Deporto quo cupiditate.
-        </p>
+        <h2 className="title-post text-[20px] md:text-[23px] font-bold">
+          {title}
+        </h2>
+        <p className="body-post mt-2">{body}</p>
       </div>
     </Link>
   );
