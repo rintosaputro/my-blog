@@ -22,12 +22,10 @@ export const getUsers: any = createAsyncThunk(
   "users/getUsers",
   async (users: User[] = []) => {
     if (users.length) {
-      console.log("aaaaaaaaaaaiiiiiiiiiinnnnnnnnnnnniiiiiiiii", users);
       return users;
     }
 
     const usersData = await getUsersApi();
-    console.log("iiiiiiiiiinnnnnnnnnnnniiiiiiiii", usersData);
     return usersData;
   }
 );
@@ -56,6 +54,21 @@ export const createUser: any = createAsyncThunk(
   }
 );
 
+export const deleteUser: any = createAsyncThunk(
+  "users/deleteUser",
+  async (id: number) => {
+    await fetch(`${baseUrl}/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    });
+
+    return id;
+  }
+);
+
 const usersEntity = createEntityAdapter<User>({
   selectId: (user) => user.id,
 });
@@ -69,6 +82,9 @@ const usersSlice = createSlice({
     },
     [createUser.fulfilled]: (state, action) => {
       usersEntity.addOne(state, action.payload);
+    },
+    [deleteUser.fulfilled]: (state, action) => {
+      usersEntity.removeOne(state, action.payload);
     },
   },
   reducers: {},
