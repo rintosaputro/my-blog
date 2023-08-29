@@ -36,7 +36,6 @@ const CreateUser = () => {
     e.preventDefault();
     const payload = { name, email, gender, status };
     dispatch(createUser(payload));
-    console.log(users);
     router.push("/users");
   };
 

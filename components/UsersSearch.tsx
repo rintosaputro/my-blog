@@ -29,7 +29,7 @@ const UsersSearch = () => {
     );
 
     dispatch(setSearchDataUser(searchResult));
-  }, [searchQuery]);
+  }, [searchQuery, users]);
 
   return (
     <div className="min-h-[70vh] relative" suppressHydrationWarning>

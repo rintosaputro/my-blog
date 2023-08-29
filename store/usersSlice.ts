@@ -49,7 +49,28 @@ export const createUser: any = createAsyncThunk(
     });
 
     const responseJson = await response.json();
-    console.log("iiiinnnnniiiii", responseJson);
+    return responseJson;
+  }
+);
+
+export const updateUser: any = createAsyncThunk(
+  "users/updateUser",
+  async ({ payload, id }: { payload: User; id: number }) => {
+    const { name, email, status } = payload;
+    const response = await fetch(`${baseUrl}/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      method: "PATCH",
+      body: JSON.stringify({
+        name,
+        email,
+        status,
+      }),
+    });
+
+    const responseJson = await response.json();
     return responseJson;
   }
 );
@@ -82,6 +103,12 @@ const usersSlice = createSlice({
     },
     [createUser.fulfilled]: (state, action) => {
       usersEntity.addOne(state, action.payload);
+    },
+    [updateUser.fulfilled]: (state, action) => {
+      usersEntity.updateOne(state, {
+        id: action.payload.id,
+        changes: action.payload,
+      });
     },
     [deleteUser.fulfilled]: (state, action) => {
       usersEntity.removeOne(state, action.payload);
