@@ -1,17 +1,30 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "./TextField";
 import Radio from "./Radio";
 import Button from "./Button";
+import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
+import { updateUser } from "@/store/usersSlice";
+import { RootState } from "@/store";
+import { initialStateModal, setDialog } from "@/store/modalSlice";
+
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 const ModalUpdateUser = () => {
+  const dispatch = useDispatch();
+  const { data, isOpen } = useAppSelector((state) => state.modal);
+
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [gender, setGender] = useState<string>("male");
-  const [status, setStatus] = useState<string>("active");
+  const [status, setStatus] = useState<string>("");
 
-  // const dispatch = useDispatch();
+  useEffect(() => {
+    const { name, email, status } = data;
+    setName(name);
+    setEmail(email);
+    setStatus(status);
+  }, [data]);
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -19,21 +32,27 @@ const ModalUpdateUser = () => {
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-  const handleGender = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGender(e.target.value);
-  };
   const handleStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value);
   };
 
+  const handleClose = () => dispatch(setDialog(initialStateModal));
+
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const payload = { name, email, gender, status };
-    console.log(payload);
+    const payload = { name, email, status };
+    const { id } = data;
+
+    dispatch(updateUser({ payload, id }));
+    handleClose();
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[100vh] max-h-full flex justify-center items-center bg-slate-950/50">
+    <div
+      className={`fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[100vh] max-h-full justify-center items-center bg-slate-950/50 ${
+        isOpen ? "flex" : "hidden"
+      }`}
+    >
       <div className="relative w-full max-w-2xl max-h-full">
         <div className="relative bg-white rounded-lg shado">
           <div className="flex items-start justify-between p-4 border-b rounded-t">
@@ -58,21 +77,6 @@ const ModalUpdateUser = () => {
               value={email}
               onChange={handleEmail}
             />
-            <h2 className="font-semibold text-[18px] mb-2">Gender:</h2>
-            <div className="flex gap-3">
-              <Radio
-                label="male"
-                value="male"
-                checked={gender === "male"}
-                onChange={handleGender}
-              />
-              <Radio
-                label="female"
-                value="female"
-                checked={gender === "female"}
-                onChange={handleGender}
-              />
-            </div>
             <h2 className="font-semibold text-[18px] mt-6 mb-2">Status:</h2>
             <div className="flex gap-3">
               <Radio
@@ -92,7 +96,7 @@ const ModalUpdateUser = () => {
               <Button type="submit" variant="primary">
                 Save
               </Button>
-              <Button type="submit" variant="secondary">
+              <Button type="button" variant="secondary" onClick={handleClose}>
                 Cancel
               </Button>
             </div>

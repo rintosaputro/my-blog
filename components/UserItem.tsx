@@ -3,10 +3,15 @@ import React from "react";
 import Button from "./Button";
 import { store } from "@/store";
 import { deleteUser } from "@/store/usersSlice";
+import { setDialog } from "@/store/modalSlice";
 
 const UserItem = ({ user }: { user: User }) => {
   const handleDelete = async () => {
     await store.dispatch(deleteUser(user.id));
+  };
+
+  const handleUpdate = async () => {
+    await store.dispatch(setDialog({ data: user, isOpen: true }));
   };
 
   return (
@@ -41,7 +46,9 @@ const UserItem = ({ user }: { user: User }) => {
         </li>
       </ul>
       <div className="flex w-full gap-2">
-        <Button fullwidth>Update</Button>
+        <Button fullwidth onClick={handleUpdate}>
+          Update
+        </Button>
         <Button onClick={handleDelete} variant="secondary" fullwidth>
           Delete
         </Button>
