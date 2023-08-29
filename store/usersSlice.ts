@@ -49,7 +49,6 @@ export const createUser: any = createAsyncThunk(
     });
 
     const responseJson = await response.json();
-    console.log("iiiinnnnniiiii", responseJson);
     return responseJson;
   }
 );

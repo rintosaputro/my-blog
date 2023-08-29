@@ -1,3 +1,4 @@
+import ModalUpdate from "@/components/ModalUpdateUser";
 import UsersPreloader from "@/components/UsersPreloader";
 import UsersSearch from "@/components/UsersSearch";
 import { store } from "@/store";
@@ -12,6 +13,7 @@ const Users = async () => {
     <main>
       <UsersPreloader users={users} />
       <UsersSearch />
+      <ModalUpdate />
     </main>
   );
 };
