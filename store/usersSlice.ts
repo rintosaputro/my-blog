@@ -9,6 +9,7 @@ import { RootState } from ".";
 
 export const getUsersApi = async () => {
   const users = await fetch(`${baseUrl}/users`, {
+    cache: "no-store",
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -21,12 +22,10 @@ export const getUsers: any = createAsyncThunk(
   "users/getUsers",
   async (users: User[] = []) => {
     if (users.length) {
-      console.log("aaaaaaaaaaaiiiiiiiiiinnnnnnnnnnnniiiiiiiii", users);
       return users;
     }
 
     const usersData = await getUsersApi();
-    console.log("iiiiiiiiiinnnnnnnnnnnniiiiiiiii", usersData);
     return usersData;
   }
 );
@@ -50,8 +49,44 @@ export const createUser: any = createAsyncThunk(
     });
 
     const responseJson = await response.json();
-    console.log("iiiinnnnniiiii", responseJson);
     return responseJson;
+  }
+);
+
+export const updateUser: any = createAsyncThunk(
+  "users/updateUser",
+  async ({ payload, id }: { payload: User; id: number }) => {
+    const { name, email, status } = payload;
+    const response = await fetch(`${baseUrl}/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      method: "PATCH",
+      body: JSON.stringify({
+        name,
+        email,
+        status,
+      }),
+    });
+
+    const responseJson = await response.json();
+    return responseJson;
+  }
+);
+
+export const deleteUser: any = createAsyncThunk(
+  "users/deleteUser",
+  async (id: number) => {
+    await fetch(`${baseUrl}/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    });
+
+    return id;
   }
 );
 
@@ -68,6 +103,15 @@ const usersSlice = createSlice({
     },
     [createUser.fulfilled]: (state, action) => {
       usersEntity.addOne(state, action.payload);
+    },
+    [updateUser.fulfilled]: (state, action) => {
+      usersEntity.updateOne(state, {
+        id: action.payload.id,
+        changes: action.payload,
+      });
+    },
+    [deleteUser.fulfilled]: (state, action) => {
+      usersEntity.removeOne(state, action.payload);
     },
   },
   reducers: {},
