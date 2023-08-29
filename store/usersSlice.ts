@@ -71,7 +71,6 @@ export const updateUser: any = createAsyncThunk(
     });
 
     const responseJson = await response.json();
-    console.log("ooooooooookkkkkkkkkkkeeeeeeee", responseJson);
     return responseJson;
   }
 );
@@ -106,7 +105,10 @@ const usersSlice = createSlice({
       usersEntity.addOne(state, action.payload);
     },
     [updateUser.fulfilled]: (state, action) => {
-      usersEntity.updateOne(state, action.payload);
+      usersEntity.updateOne(state, {
+        id: action.payload.id,
+        changes: action.payload,
+      });
     },
     [deleteUser.fulfilled]: (state, action) => {
       usersEntity.removeOne(state, action.payload);

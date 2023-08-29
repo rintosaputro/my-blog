@@ -30,7 +30,7 @@ const UsersSearch = () => {
 
     dispatch(setSearchDataUser(searchResult));
   }, [searchQuery, users]);
-  console.log("update", users);
+
   return (
     <div className="min-h-[70vh] relative" suppressHydrationWarning>
       <input
