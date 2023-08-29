@@ -10,8 +10,8 @@ const UserItem = ({ user }: { user: User }) => {
     await store.dispatch(deleteUser(user.id));
   };
 
-  const handleUpdate = async () => {
-    await store.dispatch(setDialog({ data: user, isOpen: true }));
+  const handleUpdate = () => {
+    store.dispatch(setDialog({ data: user, open: "update-user" }));
   };
 
   return (

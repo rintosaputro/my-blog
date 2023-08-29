@@ -1,6 +1,14 @@
+import { User } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 
-export const initialStateModal = {
+type Open = null | "update-user" | "delete-user";
+
+interface InitialStateModalI {
+  data: User;
+  open: Open;
+}
+
+export const initialStateModal: InitialStateModalI = {
   data: {
     name: "",
     email: "",
@@ -8,7 +16,7 @@ export const initialStateModal = {
     gender: "",
     status: "",
   },
-  isOpen: false,
+  open: null,
 };
 
 export const modalSlice = createSlice({
@@ -17,7 +25,7 @@ export const modalSlice = createSlice({
   reducers: {
     setDialog: (state, action) => {
       state.data = action.payload.data;
-      state.isOpen = action.payload.isOpen;
+      state.open = action.payload.open;
     },
   },
 });

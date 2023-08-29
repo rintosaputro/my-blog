@@ -3,10 +3,10 @@
 import ButtonSubmit from "@/components/Button";
 import Radio from "@/components/Radio";
 import TextField from "@/components/TextField";
-import { createUser, usersSelector } from "@/store/usersSlice";
+import { createUser } from "@/store/usersSlice";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const CreateUser = () => {
   const [name, setName] = useState<string>("");
@@ -30,13 +30,16 @@ const CreateUser = () => {
     setStatus(e.target.value);
   };
 
-  const users = useSelector(usersSelector.selectAll);
-
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const payload = { name, email, gender, status };
+    const payload: any = { name, email, gender, status };
+
+    if (!name || !email) {
+      return alert("You must complete all required fields");
+    }
+
     dispatch(createUser(payload));
-    router.push("/users");
+    return router.push("/users");
   };
 
   return (

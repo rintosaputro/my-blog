@@ -13,7 +13,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 const ModalUpdateUser = () => {
   const dispatch = useDispatch();
-  const { data, isOpen } = useAppSelector((state) => state.modal);
+  const { data, open } = useAppSelector((state) => state.modal);
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -50,7 +50,7 @@ const ModalUpdateUser = () => {
   return (
     <div
       className={`fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[100vh] max-h-full justify-center items-center bg-slate-950/50 ${
-        isOpen ? "flex" : "hidden"
+        open === "update-user" ? "flex" : "hidden"
       }`}
     >
       <div className="relative w-full max-w-2xl max-h-full">
