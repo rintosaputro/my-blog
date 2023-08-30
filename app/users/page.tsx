@@ -7,7 +7,6 @@ import React from "react";
 
 const Users = async () => {
   const users = await getUsersApi();
-  console.log("usssssssssssssssseeeeeeeeeeeeeeeeeeeeeerrrrrrrrr", users);
   await store.dispatch(getUsers(users));
 
   return (
