@@ -1,5 +1,6 @@
-import Link from "next/link";
 import React from "react";
+import ButtonLink from "./ButtonLink";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -7,9 +8,9 @@ const Header = () => {
       <Link href={"/"} className="p-3 bg-white rounded-lg">
         Home
       </Link>
-      <Link href="/users" className="p-3 bg-white rounded-lg">
+      <ButtonLink href="/users" className="p-3 bg-white rounded-lg">
         Users
-      </Link>
+      </ButtonLink>
     </header>
   );
 };
